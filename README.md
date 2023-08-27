@@ -11,6 +11,8 @@ This chrome extension can be used to place a limit on your Lichess games! This e
   - [Table of Contents](#table-of-contents)
   - [Installlation](#installlation)
   - [Usage](#usage)
+  - [Known Issues](#known-issues)
+  - [Credits](#credits)
 
 ## Installlation
 
@@ -24,3 +26,13 @@ This chrome extension can be used to place a limit on your Lichess games! This e
 - Click the extension icon on Chrome.
 - Enter your Lichess username and the game limit per day on that account.
 - The limit resets at midnight every day.
+
+## Known Issues
+
+- Can only limit the total number of games. Should be able to limit by game type such as Blitz/Bullet/Rapid.
+- Count resets at midnight everyday. Should have a feature that determines reset time.
+- Need to expand into Chess.com
+
+## Credits
+
+<a href="https://www.flaticon.com/free-icons/checkmate" title="checkmate icons">Extension icon created by BZZRINCANTATION - Flaticon</a>
