@@ -1,4 +1,5 @@
 var blockUi = () => {
+  console.debug("Removing UI elements!");
   var classesToCull = [
     "lobby__app lobby__app-pools",
     "lobby__spotlights",
@@ -70,37 +71,40 @@ var waitForElm = (selector) => {
   });
 };
 
+var checkIfLimitReached = async (username, limit) => {
+  getGamesCount(username).then((currentCount) => {
+    get("lastFetchCount").then((lastFetchCount) => {
+      if (currentCount - lastFetchCount >= limit) {
+        console.debug("Limit reached!");
+        blockUi();
+      }
+    });
+  });
+};
+
 get("username").then((username) => {
   get("limit").then((limit) => {
     if (username != undefined && limit != undefined) {
-      get("lastFetchTime").then((lastFetchTime) => {
-        var currentTime = new Date();
-        if (lastFetchTime == undefined) {
+      get("lastFetchDate").then((lastFetchDate) => {
+        var currentDate = new Date().getDate();
+        if (lastFetchDate == undefined) {
           console.debug("First run");
-          lastFetchTime = currentTime.toString();
-          set("lastFetchTime", lastFetchTime);
+          lastFetchDate = currentDate;
+          set("lastFetchDate", lastFetchDate);
           getGamesCount(username).then((count) => set("lastFetchCount", count));
         }
-        lastFetchTime = new Date(Date.parse(lastFetchTime));
-        if (currentTime - lastFetchTime > 86400000) {
+        if (currentDate != lastFetchDate) {
           console.debug("A day has passed");
-          set("lastFetchTime", currentTime.toString());
+          set("lastFetchDate", currentDate);
           getGamesCount(username).then((count) => set("lastFetchCount", count));
         }
-        getGamesCount(username).then((currentCount) => {
-          get("lastFetchCount").then((lastFetchCount) => {
-            if (currentCount - lastFetchCount >= limit) {
-              console.debug("Limit reached!");
-              blockUi();
-            }
-          });
-        });
+
+        checkIfLimitReached(username, limit);
+      });
+      waitForElm(".follow-up").then((elem) => {
+        console.debug("Game terminated");
+        checkIfLimitReached(username, limit);
       });
     }
   });
-});
-
-waitForElm(".follow-up").then((elem) => {
-  console.debug("Game terminated");
-  blockUi();
 });
