@@ -15,9 +15,12 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": ["storage"],
-
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["https://lichess.org/*"],
   "action": {
     "default_popup": "src/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js"
   }
 }

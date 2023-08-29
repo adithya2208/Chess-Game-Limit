@@ -74,11 +74,22 @@ var waitForElm = (selector) => {
 var checkIfLimitReached = async (username, limit) => {
   getGamesCount(username).then((currentCount) => {
     get("lastFetchCount").then((lastFetchCount) => {
+      addHeaderDiv(currentCount - lastFetchCount, limit);
       if (currentCount - lastFetchCount >= limit) {
         console.debug("Limit reached!");
         blockUi();
       }
     });
+  });
+};
+var addHeaderDiv = async (count, limit) => {
+  await chrome.runtime.sendMessage({ lichess: true }).then(() => {
+    if (document.getElementById("limit-div") == undefined) {
+      let header = document.createElement("div");
+      header.id = "limit-div";
+      header.innerHTML = `Lichess game limit counter: ${count}/${limit}`;
+      document.body.prepend(header);
+    }
   });
 };
 
