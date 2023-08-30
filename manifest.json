@@ -10,7 +10,7 @@
   },
   "content_scripts": [
     {
-      "js": ["src/index.js"],
+      "js": ["scripts/main.js"],
       "matches": ["https://lichess.org/*"],
       "run_at": "document_end"
     }
@@ -18,9 +18,9 @@
   "permissions": ["storage", "scripting"],
   "host_permissions": ["https://lichess.org/*"],
   "action": {
-    "default_popup": "src/popup.html"
+    "default_popup": "popup/popup.html"
   },
   "background": {
-    "service_worker": "src/background.js"
+    "service_worker": "./service-worker.js"
   }
 }

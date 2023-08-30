@@ -32,6 +32,7 @@ This chrome extension can be used to place a limit on your Lichess games! This e
 - Can only limit the total number of games. Should be able to limit by game type such as Blitz/Bullet/Rapid.
 - Count resets at midnight everyday. Should have a feature that determines reset time.
 - Need to expand into Chess.com
+- Update the popup UI to make it look better
 
 ## Credits
 

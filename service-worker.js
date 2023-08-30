@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.debug("Inserting CSS");
     chrome.scripting.insertCSS({
       target: { tabId: sender.tab.id },
-      files: ["src/limit.css"],
+      files: ["static/limit.css"],
     });
   }
 });
