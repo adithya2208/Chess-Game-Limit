@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/popup.html",
-    "build": "parcel build src/popup.html"
+    "build": "rm -r dist; parcel build src/popup.html --public-url ."
   },
   "author": "",
   "license": "ISC",
