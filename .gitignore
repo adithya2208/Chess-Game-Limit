@@ -1,1 +1,3 @@
 popup/node_modules/
+popup/dist
+popup/.parcel-cache
