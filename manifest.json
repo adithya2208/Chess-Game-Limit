@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "lilimiter",
-  "description": "Base Level Extension",
-  "version": "1.0",
+  "name": "Chess Game Limiter",
+  "description": "Limit the number of games you play per day on lichess.org",
+  "version": "1.0.0",
   "icons": {
     "16": "images/chess_16.png",
     "32": "images/chess_32.png",
