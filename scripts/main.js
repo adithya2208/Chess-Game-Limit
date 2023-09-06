@@ -71,39 +71,12 @@ var waitForElm = (selector) => {
   });
 };
 
-var checkIfLimitReached = async (username, limit) => {
+var blockUiIfLimitReached = async (username, limit) => {
   let currentCount = await getGamesCount(username);
   let lastFetchCount = await get("lastFetchCount");
   if (currentCount - lastFetchCount >= limit) {
     console.debug("Limit reached!");
     blockUi();
-  }
-};
-
-var main = async () => {
-  let username = await get("username");
-  let limit = await get("limit");
-  if (username != undefined && limit != undefined) {
-    let lastFetchDate = await get("lastFetchDate");
-    var currentDate = new Date().getDate();
-    if (lastFetchDate == undefined) {
-      console.debug("First run");
-      lastFetchDate = currentDate;
-      set("lastFetchDate", lastFetchDate);
-      let count = await getGamesCount(username);
-      set("lastFetchCount", count);
-    }
-    if (currentDate != lastFetchDate) {
-      console.debug("A day has passed");
-      set("lastFetchDate", currentDate);
-      let count = await getGamesCount(username);
-      set("lastFetchCount", count);
-    }
-    await checkIfLimitReached(username, limit);
-
-    await waitForElm(".follow-up");
-    console.debug("Game terminated");
-    await checkIfLimitReached(username, limit);
   }
 };
 
@@ -122,5 +95,36 @@ var displayHeader = async () => {
   document.getElementsByClassName("site-buttons")[0].append(temp);
 };
 
+var main = async () => {
+  let username = await get("username");
+  let limit = await get("limit");
+  if (username != undefined && limit != undefined) {
+    let lastFetchDate = await get("lastFetchDate");
+    var currentDate = new Date().getDate();
+
+    //Executed when the script runs for the first time
+    if (lastFetchDate == undefined) {
+      console.debug("First run");
+      lastFetchDate = currentDate;
+      set("lastFetchDate", lastFetchDate);
+      let count = await getGamesCount(username);
+      set("lastFetchCount", count);
+    }
+    //If 24 hours have passed
+    if (currentDate != lastFetchDate) {
+      console.debug("A day has passed");
+      set("lastFetchDate", currentDate);
+      let count = await getGamesCount(username);
+      set("lastFetchCount", count);
+    }
+    await displayHeader();
+
+    await blockUiIfLimitReached(username, limit);
+
+    await waitForElm(".follow-up");
+    console.debug("Game terminated");
+    await blockUiIfLimitReached(username, limit);
+  }
+};
+
 main();
-displayHeader();
