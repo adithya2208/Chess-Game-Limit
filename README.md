@@ -9,30 +9,40 @@ This chrome extension can be used to place a limit on your Lichess games! This e
 - [LiChess Game Limit - Chrome Extension](#lichess-game-limit---chrome-extension)
   - [Description](#description)
   - [Table of Contents](#table-of-contents)
-  - [Installlation](#installlation)
-  - [Usage](#usage)
+  - [Installlation (Need to update)](#installlation-need-to-update)
+  - [Features](#features)
+    - [Game Limit](#game-limit)
+    - [Tilt preventer](#tilt-preventer)
   - [Known Issues](#known-issues)
   - [Credits](#credits)
 
-## Installlation
+## Installlation (Need to update)
 
 - Clone this repository.
 - Go to the Extensions page by entering `chrome://extensions` in a new tab.
 - Enable Developer Mode by clicking the toggle switch next to Developer mode.
 - Click the Load unpacked button and select the extension directory.
 
-## Usage
+## Features
+
+### Game Limit
 
 - Click the extension icon on Chrome.
 - Enter your Lichess username and the game limit per day on that account.
 - The limit resets at midnight every day.
+
+### Tilt preventer
+
+- Lock Lichess if you lose 50 rating points in a day
 
 ## Known Issues
 
 - Can only limit the total number of games. Should be able to limit by game type such as Blitz/Bullet/Rapid.
 - Count resets at midnight everyday. Should have a feature that determines reset time.
 - Need to expand into Chess.com
-- Update the popup UI to make it look better
+- Implement tilt preventer feature
+- Integrate into Lichess UI using Javascript to display useful information
+- Iframe updates only after a refresh on a new day
 
 ## Credits
 

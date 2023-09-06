@@ -18,9 +18,9 @@
   "permissions": ["storage", "scripting"],
   "host_permissions": ["https://lichess.org/*"],
   "action": {
-    "default_popup": "popup/dist/popup.html"
+    "default_popup": "frontend/dist/popup/popup.html"
   },
   "background": {
-    "service_worker": "./service-worker.js"
+    "service_worker": "service-worker.js"
   }
 }

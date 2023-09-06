@@ -71,25 +71,14 @@ var waitForElm = (selector) => {
   });
 };
 
-var checkIfLimitReached = async (username, limit) => {
+var checkIfLimitReached = (username, limit) => {
   getGamesCount(username).then((currentCount) => {
     get("lastFetchCount").then((lastFetchCount) => {
-      addHeaderDiv(currentCount - lastFetchCount, limit);
       if (currentCount - lastFetchCount >= limit) {
         console.debug("Limit reached!");
         blockUi();
       }
     });
-  });
-};
-var addHeaderDiv = async (count, limit) => {
-  await chrome.runtime.sendMessage({ lichess: true }).then(() => {
-    if (document.getElementById("limit-div") == undefined) {
-      let header = document.createElement("div");
-      header.id = "limit-div";
-      header.innerHTML = `Lichess game limit counter: ${count}/${limit}`;
-      document.body.prepend(header);
-    }
   });
 };
 
@@ -119,3 +108,16 @@ get("username").then((username) => {
     }
   });
 });
+
+chrome.storage.local
+  .get(["lastFetchCount", "username", "limit"])
+  .then((val) => {
+    getGamesCount(val["username"]).then((count) => {
+      var temp = document.createElement("div");
+      var content = document.createTextNode(
+        `LiChess Game Limit: ${count - val["lastFetchCount"]}/${val["limit"]}`
+      );
+      temp.appendChild(content);
+      document.getElementsByClassName("site-buttons")[0].append(temp);
+    });
+  });
