@@ -71,53 +71,56 @@ var waitForElm = (selector) => {
   });
 };
 
-var checkIfLimitReached = (username, limit) => {
-  getGamesCount(username).then((currentCount) => {
-    get("lastFetchCount").then((lastFetchCount) => {
-      if (currentCount - lastFetchCount >= limit) {
-        console.debug("Limit reached!");
-        blockUi();
-      }
-    });
-  });
+var checkIfLimitReached = async (username, limit) => {
+  let currentCount = await getGamesCount(username);
+  let lastFetchCount = await get("lastFetchCount");
+  if (currentCount - lastFetchCount >= limit) {
+    console.debug("Limit reached!");
+    blockUi();
+  }
 };
 
-get("username").then((username) => {
-  get("limit").then((limit) => {
-    if (username != undefined && limit != undefined) {
-      get("lastFetchDate").then((lastFetchDate) => {
-        var currentDate = new Date().getDate();
-        if (lastFetchDate == undefined) {
-          console.debug("First run");
-          lastFetchDate = currentDate;
-          set("lastFetchDate", lastFetchDate);
-          getGamesCount(username).then((count) => set("lastFetchCount", count));
-        }
-        if (currentDate != lastFetchDate) {
-          console.debug("A day has passed");
-          set("lastFetchDate", currentDate);
-          getGamesCount(username).then((count) => set("lastFetchCount", count));
-        }
-
-        checkIfLimitReached(username, limit);
-      });
-      waitForElm(".follow-up").then((elem) => {
-        console.debug("Game terminated");
-        checkIfLimitReached(username, limit);
-      });
+var main = async () => {
+  let username = await get("username");
+  let limit = await get("limit");
+  if (username != undefined && limit != undefined) {
+    let lastFetchDate = await get("lastFetchDate");
+    var currentDate = new Date().getDate();
+    if (lastFetchDate == undefined) {
+      console.debug("First run");
+      lastFetchDate = currentDate;
+      set("lastFetchDate", lastFetchDate);
+      let count = await getGamesCount(username);
+      set("lastFetchCount", count);
     }
-  });
-});
+    if (currentDate != lastFetchDate) {
+      console.debug("A day has passed");
+      set("lastFetchDate", currentDate);
+      let count = await getGamesCount(username);
+      set("lastFetchCount", count);
+    }
+    await checkIfLimitReached(username, limit);
 
-chrome.storage.local
-  .get(["lastFetchCount", "username", "limit"])
-  .then((val) => {
-    getGamesCount(val["username"]).then((count) => {
-      var temp = document.createElement("div");
-      var content = document.createTextNode(
-        `LiChess Game Limit: ${count - val["lastFetchCount"]}/${val["limit"]}`
-      );
-      temp.appendChild(content);
-      document.getElementsByClassName("site-buttons")[0].append(temp);
-    });
-  });
+    await waitForElm(".follow-up");
+    console.debug("Game terminated");
+    await checkIfLimitReached(username, limit);
+  }
+};
+
+var displayHeader = async () => {
+  let { lastFetchCount, username, limit } = await chrome.storage.local.get([
+    "lastFetchCount",
+    "username",
+    "limit",
+  ]);
+  let count = await getGamesCount(username);
+  var temp = document.createElement("div");
+  var content = document.createTextNode(
+    `LiChess Game Limit: ${count - lastFetchCount}/${limit}`
+  );
+  temp.appendChild(content);
+  document.getElementsByClassName("site-buttons")[0].append(temp);
+};
+
+main();
+displayHeader();
