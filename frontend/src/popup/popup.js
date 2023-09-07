@@ -5,8 +5,10 @@ document.addEventListener(
   "DOMContentLoaded",
   function () {
     chrome.storage.local.get(["username", "limit"]).then((val) => {
-      document.querySelector("#username").value = val["username"];
-      document.querySelector("#limit").value = val["limit"];
+      if (val["username"] != undefined)
+        document.querySelector("#username").value = val["username"];
+      if (val["limit"] != undefined)
+        document.querySelector("#limit").value = val["limit"];
     });
     document
       .querySelector("#username")
