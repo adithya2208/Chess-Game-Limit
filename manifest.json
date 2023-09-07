@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Chess Game Limiter",
-  "description": "Limit the number of games you play per day on lichess.org",
+  "description": "Take control of your chess gaming with this Chrome extension! Set daily game limits ensuring a more focused lichess.org experience!",
   "version": "1.0.0",
   "icons": {
     "16": "images/chess_16.png",
@@ -15,7 +15,7 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": ["storage", "scripting"],
+  "permissions": ["storage"],
   "action": {
     "default_popup": "frontend/dist/popup.html"
   },
