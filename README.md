@@ -7,7 +7,7 @@
 - [LiChess Game Limit - Chrome Extension](#lichess-game-limit---chrome-extension)
   - [Table of Contents](#table-of-contents)
   - [Description](#description)
-  - [Installlation (Need to update)](#installlation-need-to-update)
+  - [Installlation](#installlation)
   - [Features](#features)
     - [Game Limit](#game-limit)
     - [Tilt preventer](#tilt-preventer)
@@ -18,7 +18,7 @@
 
 This chrome extension can be used to place a limit on your Lichess games! This extension hides all UI elements used to create a new game on lichess.org once you have reached your limit. The website can be used for all other features including analyzing your old games and puzzles.
 
-## Installlation (Need to update)
+## Installlation
 
 - Clone this repository.
 - `cd frontend; npm install; npm run build;`
