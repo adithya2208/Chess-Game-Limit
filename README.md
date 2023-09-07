@@ -1,14 +1,12 @@
 # LiChess Game Limit - Chrome Extension
 
-## Description
-
-This chrome extension can be used to place a limit on your Lichess games! This extension hides all UI elements used to create a new game on lichess.org once you have reached your limit. The website can be used for all other features including analyzing your old games and puzzles.
+![Screenshot](images/main.png)
 
 ## Table of Contents
 
 - [LiChess Game Limit - Chrome Extension](#lichess-game-limit---chrome-extension)
-  - [Description](#description)
   - [Table of Contents](#table-of-contents)
+  - [Description](#description)
   - [Installlation (Need to update)](#installlation-need-to-update)
   - [Features](#features)
     - [Game Limit](#game-limit)
@@ -16,9 +14,14 @@ This chrome extension can be used to place a limit on your Lichess games! This e
   - [Known Issues](#known-issues)
   - [Credits](#credits)
 
+## Description
+
+This chrome extension can be used to place a limit on your Lichess games! This extension hides all UI elements used to create a new game on lichess.org once you have reached your limit. The website can be used for all other features including analyzing your old games and puzzles.
+
 ## Installlation (Need to update)
 
 - Clone this repository.
+- `cd frontend; npm install; npm run build;`
 - Go to the Extensions page by entering `chrome://extensions` in a new tab.
 - Enable Developer Mode by clicking the toggle switch next to Developer mode.
 - Click the Load unpacked button and select the extension directory.
@@ -33,16 +36,15 @@ This chrome extension can be used to place a limit on your Lichess games! This e
 
 ### Tilt preventer
 
-- Lock Lichess if you lose 50 rating points in a day
+- Lock Lichess if you lose 50 rating points in a day.
+- Coming soon!
 
 ## Known Issues
 
-- Can only limit the total number of games. Should be able to limit by game type such as Blitz/Bullet/Rapid.
-- Count resets at midnight everyday. Should have a feature that determines reset time.
+- Be able to limit by game type such as Blitz/Bullet/Rapid.
+- Count resets at midnight everyday. Implement a feature that determines reset time.
 - Need to expand into Chess.com
-- Implement tilt preventer feature
-- Integrate into Lichess UI using Javascript to display useful information
-- Iframe updates only after a refresh on a new day
+- Implement tilt preventer feature.
 
 ## Credits
 
